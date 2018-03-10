@@ -1,10 +1,15 @@
-test_script:
-  - call %CONDA_INSTALL_LOCN%\Scripts\activate.bat
+install:
+  - call C:\Miniconda36-x64\Scripts\activate.bat
   - conda.exe install --yes --quiet conda=4.3
   - conda.exe install --yes --quiet kitware-ninja -c isuruf
-  - set PATH=C:\MinGW\bin;%PATH%
+
+build_script:
+  - set PATH=C:\msys64\mingw64\bin;%PATH%
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
   - cmake -G "Ninja" -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_Fortran_COMPILER=gfortran .
 
-on_finish:
-- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+test_script:
+  - echo "Hello World"
+
+#on_finish:
+#- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
